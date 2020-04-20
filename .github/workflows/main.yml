@@ -1,0 +1,46 @@
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  phantomize:
+    runs-on: ubuntu-latest
+    name: Extract dependencies for phantomjs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Extract dependencies
+        uses: ./
+        with:
+          phantomjsVersion: 2.1.1
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload dependencies
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dockerized-phantomjs.tar.gz
+          asset_name: dockerized-phantomjs.tar.gz
+          asset_content_type: application/gzip
+      - name: Generate dependencies without /etc
+        run: gunzip -c dockerized-phantomjs.tar.gz | tar f - --delete ./etc | gzip -c - > dockerized-phantomjs-no-etc.tar.gz
+      - name: Upload dependencies without /etc
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dockerized-phantomjs-no-etc.tar.gz
+          asset_name: dockerized-phantomjs-no-etc.tar.gz
+          asset_content_type: application/gzip

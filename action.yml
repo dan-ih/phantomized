@@ -1,0 +1,16 @@
+name: 'Phantomized'
+description: 'Extract dependencies for phantomjs'
+inputs:
+  phantomjsVersion:
+    description: 'The phantomjs version to build'
+    default: '2.1.1'
+outputs:
+  artifact:
+    description: 'The tgz containing the dependencies'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - npm
+    - run
+    - create:action

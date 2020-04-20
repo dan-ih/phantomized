@@ -1,2 +1,2 @@
-node_modules/
-test.js
+/dockerized-phantomjs.tar.gz
+/node_modules
