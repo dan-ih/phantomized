@@ -6,10 +6,16 @@ This build does not include the phantomjs binary itself so make it easier for ap
 
 ## How To
 
-Adding this line to your Dockerfile applies all files to your docker image. You can find a production example [here](https://github.com/Gravebot/Gravebot/blob/master/Dockerfile).
+Adding this line to your Dockerfile applies all files to your docker image. You can find a production example for the upstream repository [here](https://github.com/Gravebot/Gravebot/blob/master/Dockerfile).
 
 ```bash
-curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C /
+$ curl -Ls "https://github.com/mixmaxhq/phantomized/releases/download/v2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
+```
+
+The archive above includes fontconfig files from the /etc tree - this may not be appropriate for all use-cases. You can use the following line to add the files except for fontconfig etc files:
+
+```bash
+$ curl -Ls "https://github.com/mixmaxhq/phantomized/releases/download/v2.1.1/dockerized-phantomjs-without-etc.tar.gz" | tar xz -C /
 ```
 
 ## Build from source
