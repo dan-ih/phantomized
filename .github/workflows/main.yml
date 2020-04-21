@@ -33,14 +33,14 @@ jobs:
           asset_path: ./dockerized-phantomjs.tar.gz
           asset_name: dockerized-phantomjs.tar.gz
           asset_content_type: application/gzip
-      - name: Generate dependencies without /etc
-        run: gunzip -c dockerized-phantomjs.tar.gz | tar f - --delete ./etc | gzip -c - > dockerized-phantomjs-no-etc.tar.gz
+      - name: Generate minimal dependencies
+        run: gunzip -c dockerized-phantomjs.tar.gz | tar f - --delete ./etc ./usr/share/fonts | gzip -c - > dockerized-phantomjs-minimal.tar.gz
       - name: Upload dependencies without /etc
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dockerized-phantomjs-no-etc.tar.gz
-          asset_name: dockerized-phantomjs-no-etc.tar.gz
+          asset_path: ./dockerized-phantomjs-minimal.tar.gz
+          asset_name: dockerized-phantomjs-minimal.tar.gz
           asset_content_type: application/gzip

@@ -86,7 +86,7 @@ async function phantomize({
       gzip: true,
       portable: true,
     },
-    ['./etc/fonts', './lib', './lib64', './usr/lib']
+    ['./etc/fonts', './lib', './lib64', './usr/lib', './usr/share/fonts']
   );
 
   log.info('done');

@@ -12,10 +12,10 @@ Adding this line to your Dockerfile applies all files to your docker image. You 
 $ curl -Ls "https://github.com/mixmaxhq/phantomized/releases/download/v2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
 ```
 
-The archive above includes fontconfig files from the /etc tree - this may not be appropriate for all use-cases. You can use the following line to add the files except for fontconfig etc files:
+The archive above includes fontconfig files from the `/etc` and fonts from the `/usr/share/fonts` tree - this may not be appropriate for all use-cases. You can use the following line to apply all but these files to your docker image:
 
 ```bash
-$ curl -Ls "https://github.com/mixmaxhq/phantomized/releases/download/v2.1.1/dockerized-phantomjs-without-etc.tar.gz" | tar xz -C /
+$ curl -Ls "https://github.com/mixmaxhq/phantomized/releases/download/v2.1.1/dockerized-phantomjs-minimal.tar.gz" | tar xz -C /
 ```
 
 ## Build from source
